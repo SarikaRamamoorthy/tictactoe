@@ -2,18 +2,18 @@ package com.tictactoe.grid;
 
 public class Grid implements Decoration {
     public enum Choice {X, O};
-    static int SIZE;
-    static int[][] matrix;
+    public static int SIZE;
+    public static char[][] board;   
 
     public static void initializeGrid(int n) {
         SIZE = n;
-        matrix = new int[n][n];
+        board = new char[n][n];
     }
 
     public static void display() {
         for(int i = 0 ; i < SIZE ; i++) {
             for(int j = 0 ; j < SIZE ; j++) {
-                System.out.print(matrix[i][j] + " ");
+                System.out.print(board[i][j] + " ");
             }
             System.out.println();
         }
@@ -31,7 +31,7 @@ public class Grid implements Decoration {
         return (
             (xPos >= 0 && xPos < SIZE) && 
             (yPos >= 0 && yPos < SIZE) && 
-            (matrix[xPos][yPos] == 0)
+            (board[xPos][yPos] == 0)
         );
     }
 
@@ -49,9 +49,9 @@ public class Grid implements Decoration {
             return false;
         }
         if (choice == Choice.X) {
-            matrix[xPos][yPos] = 1;
+            board[xPos][yPos] = 'X';
         } else {
-            matrix[xPos][yPos] = -1;
+            board[xPos][yPos] = 'O';
         }
         return true;
     }
@@ -67,64 +67,56 @@ public class Grid implements Decoration {
     public static boolean isWinState(int xPos, int yPos) {
 
         // check row conditions
-        for(int i = xPos - 1 ; i >= 0 ; i--) {
-            if (matrix[xPos][yPos] != matrix[i][yPos]) {
-                return false;
+        boolean flag = true;
+        for (int i = 0; i < SIZE; i++) {
+            if (board[xPos][yPos] != board[i][yPos]) {
+                flag = false;
             }
         }
 
-        for(int i = xPos + 1 ; i < SIZE ; i++) {
-            if (matrix[xPos][yPos] != matrix[i][yPos]) {
-                return false;
-            }
+        if (flag) {
+            return true;
         }
         
         // check column conditions
-        for(int i = yPos - 1 ; i >= 0 ; i--) {
-            if (matrix[xPos][yPos] != matrix[xPos][i]) {
-                return false;
+        flag = true;
+        for (int i = 0; i < SIZE; i++) {
+            if (board[xPos][yPos] != board[xPos][i]) {
+                flag = false;
             }
         }
         
-        for(int i = yPos + 1 ; i < SIZE ; i++) {
-            if (matrix[xPos][yPos] != matrix[xPos][i]) {
-                return false;
-            }
+        if (flag) {
+            return true;
         }
-        
+
         // check main diagonal conditions
         if(xPos == yPos) {
             
-            for(int i = xPos - 1 ; i >= 0 ; i--) {
-                if (matrix[xPos][yPos] != matrix[i][i]) {
-                    return false;
+            flag = true;
+            for(int i = 0 ; i < SIZE ; i++) {
+                if (board[xPos][yPos] != board[i][i]) {
+                    flag = false;
                 }
             }
     
-            for(int i = xPos + 1 ; i < SIZE ; i++) {
-                if (matrix[xPos][yPos] != matrix[i][i]) {
-                    return false;
-                }
+            if (flag) {
+                return true;
             }
         }
 
         // check alternate diagonal conditions
         if(xPos + yPos == SIZE - 1) {
             
-            for(int i = xPos - 1 ; i >= 0 ; i--) {
-                if (matrix[xPos][yPos] != matrix[i][yPos - i]) {
-                    return false;
-                }
-            }
-    
-            for(int i = xPos + 1 ; i < SIZE ; i++) {
-                if (matrix[xPos][yPos] != matrix[i][yPos - i]) {
-                    return false;
+            flag = true;
+            for (int i = 0; i < SIZE; i++) {
+                if (board[xPos][yPos] != board[i][SIZE - i - 1]) {
+                    flag = false;
                 }
             }
         }
 
-        return true;
+        return flag;
 
     }
 
@@ -139,7 +131,7 @@ public class Grid implements Decoration {
     public static boolean isDrawState() {
         for(int i = 0; i < SIZE; i++) {
             for(int j = 0 ; j < SIZE ; j++) {
-                if (matrix[i][j] == 0) {
+                if (board[i][j] == 0) {
                     return false;
                 }
             }
