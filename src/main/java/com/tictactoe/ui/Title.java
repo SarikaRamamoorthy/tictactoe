@@ -10,10 +10,10 @@ public class Title extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 15));
-        g.drawString("XO Game", 210, 15);
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 15));
+        graphics.drawString("XO Game", 210, 15);
     }
 }

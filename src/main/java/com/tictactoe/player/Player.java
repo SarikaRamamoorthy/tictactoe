@@ -3,12 +3,10 @@ package com.tictactoe.player;
 import com.tictactoe.grid.Grid;
 
 public class Player {
-    int id;
-    Grid.Choice choice;
-    int score;
+    public Grid.Choice choice;
+    public int score;
 
-    public Player(Grid.Choice choice, int id) {
-        this.id = id;
+    public Player(Grid.Choice choice) {
         this.choice = choice;
         this.score = 0;
     }

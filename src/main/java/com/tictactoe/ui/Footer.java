@@ -7,10 +7,14 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import com.tictactoe.grid.Grid.Choice;
+
 public class Footer extends JPanel {
     String message;
+    char currentPlayer;
     public Footer() {
-        super();       
+        super();   
+        currentPlayer =  '?';
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(500, 125));
     }
@@ -23,7 +27,7 @@ public class Footer extends JPanel {
         if (this.message != null) {
             graphics.drawString(this.message, 210, 10);
         }
-        graphics.drawString("New Game(N)    Exit(E)                                Current Player : "+"X", 5, 110);
+        graphics.drawString("New Game(N)    Exit(E)                                Current Player : "+currentPlayer, 5, 110);
     }
 
     public void setPopupMessage(String message) {
@@ -31,7 +35,18 @@ public class Footer extends JPanel {
         repaint();
     }
 
+    public void setCurrentPlayer(Choice currentPlayer) {
+        this.currentPlayer = (currentPlayer == Choice.X )? 'X' : 'O';
+        repaint();
+    }
+
     public void resetMessage() {
         this.message = null;
+        repaint();
+    }
+
+    public void resetCurrentPlayer() {
+        this.currentPlayer = '?';
+        repaint();
     }
 }

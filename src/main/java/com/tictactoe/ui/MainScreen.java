@@ -19,8 +19,8 @@ class CustomFont {
 }
 
 public class MainScreen extends JPanel {
-    boolean select = true;
-    public MainScreen() {
+    boolean select = true, isSelected = false;
+    public MainScreen(GameWindow parentWindow) {
         this.setBackground(Color.BLACK);
         this.setPreferredSize(new Dimension(500, 500));
         this.setFocusable(true);
@@ -32,9 +32,14 @@ public class MainScreen extends JPanel {
                 switch (key) {
                     case KeyEvent.VK_UP -> setSelection(true);
                     case KeyEvent.VK_DOWN -> setSelection(false);
+                    case KeyEvent.VK_ENTER -> parentWindow.setBoard();
                 }
             }
         });
+    }
+
+    public void setModeSelection() {
+        isSelected = true;
     }
 
     public void setSelection(boolean selection) {

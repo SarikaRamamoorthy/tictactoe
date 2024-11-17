@@ -7,7 +7,13 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class Scorecard extends JPanel {
+
+    private int playerOneScore; 
+    private int playerTwoScore; 
+
     public Scorecard() {
+        playerOneScore = 0;
+        playerTwoScore = 0;
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(500, 50));
     }
@@ -15,6 +21,18 @@ public class Scorecard extends JPanel {
     @Override
     public void paintComponent(Graphics graphics) {
         graphics.setColor(Color.WHITE);
-        graphics.drawString("Score : "+"0 / 0", 210, 40);
+        graphics.drawString("Score : "+playerOneScore+" / "+playerTwoScore, 210, 40);
+    }
+
+    public void updateScorecard(int playerOneScore, int playerTwoScore) {
+        this.playerOneScore = playerOneScore;
+        this.playerTwoScore = playerTwoScore;
+        repaint();
+    }
+
+    public void resetScorecard() {
+        playerOneScore = 0;
+        playerTwoScore = 0;
+        repaint();
     }
 }

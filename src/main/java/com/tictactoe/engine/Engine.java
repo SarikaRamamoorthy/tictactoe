@@ -7,7 +7,7 @@ public class Engine extends Player{
     Grid.Choice choice;
 
     public Engine(Grid.Choice choice) {
-        super(choice, -1);
+        super(choice);
         this.choice = choice;
     }
 }

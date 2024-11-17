@@ -46,7 +46,7 @@ public class Game {
         // get input
         char c = 'X';
         Grid.Choice choice = c == 'X' ? Grid.Choice.X : Grid.Choice.O;
-        Player player = new Player(choice, 1);
+        Player player = new Player(choice);
     }
 
     public void twoPlayer() {
