@@ -138,4 +138,12 @@ public class Grid implements Decoration {
         }
         return true;
     }
+
+    public static void clearBoard() {
+        for(int i = 0;i < SIZE;i++) {
+            for(int j = 0;j < SIZE;j++) {
+                board[i][j] = '\0';
+            }
+        }
+    }
 }

@@ -8,5 +8,6 @@ public class App {
     public static void main(String[] args) {
         Grid.initializeGrid(3);
         GameWindow game = new GameWindow();
+        game.runGame();
     }
 }

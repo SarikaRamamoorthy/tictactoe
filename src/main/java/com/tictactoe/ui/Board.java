@@ -23,7 +23,7 @@ public class Board extends JPanel {
 
     private char[][] board = Grid.board;  
     private Choice currentPlayer = Choice.X;
-    private boolean gameOver = false;
+    private boolean gameOver = false; 
 
     Footer footer;  
     Scorecard scorecard;
@@ -68,13 +68,13 @@ public class Board extends JPanel {
     }
 
     private void newGame() {
-        // clear
-        // gameOver
-        // resetpopup
+        Grid.clearBoard();
+        this.footer.resetMessage();
+        gameOver = false;
     }
 
     private void exitGame() {
-        // menus
+        
     }
 
     private void markCell() {
