@@ -25,6 +25,7 @@ public class Board extends JPanel {
     private char[][] board = Grid.board;  
     private Choice currentPlayer;
     private boolean gameOver; 
+    private boolean isFirstGame;
 
 
     Footer footer;  
@@ -37,8 +38,8 @@ public class Board extends JPanel {
         footer = new Footer();
         scorecard = new Scorecard();
         this.gameWindow = gameWindow;
+        isFirstGame = true;
         initialize();
-
         this.setLayout(new BorderLayout());
         this.setBackground(Color.BLACK);
         this.setSize(new Dimension(GRID_COUNT * CELL_SIZE + XOFFSET, GRID_COUNT * CELL_SIZE + YOFFSET));  
@@ -65,7 +66,6 @@ public class Board extends JPanel {
                     repaintCell(cursorRow, cursorCol);  
                 } 
                 if(currentPlayer == null) {
-                    // System.out.println("key xo");
                     switch (key) {
                         case KeyEvent.VK_X -> setCurrentPlayer(Choice.X);
                         case KeyEvent.VK_O -> setCurrentPlayer(Choice.O);
@@ -99,6 +99,7 @@ public class Board extends JPanel {
     }
 
     private void exitGame() {
+        newGame();
         gameWindow.setMainScreen();
     }
 
@@ -112,11 +113,6 @@ public class Board extends JPanel {
                 else {
                     playerTwo.score++;
                 }
-                System.out.println(currentPlayer);
-                System.out.println(playerOne.choice);
-                System.out.println(playerTwo.choice);
-                System.out.println(playerOne.score);
-                System.out.println(playerTwo.score);
                 scorecard.updateScorecard(playerOne.score, playerTwo.score);
                 String message = currentPlayer == Choice.X ? "X Wins!!!" : "O Wins!!!";
                 footer.setPopupMessage(message);
@@ -126,6 +122,7 @@ public class Board extends JPanel {
                 gameOver = true;
             } 
             currentPlayer = (currentPlayer == Choice.X) ? Choice.O : Choice.X; 
+            isFirstGame = false;
             footer.setCurrentPlayer(currentPlayer); 
             repaintCell(cursorRow, cursorCol);
         }
@@ -156,9 +153,10 @@ public class Board extends JPanel {
                 }
             }
         }
-
+        
         if(currentPlayer == null) {
-            graphics.drawString("Choose X or O from keyboard", XOFFSET, (CELL_SIZE * GRID_COUNT) + YOFFSET + 25);
+            graphics.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 10));
+            graphics.drawString("Choose X or O from keyboard", XOFFSET - 5, (CELL_SIZE * GRID_COUNT) + YOFFSET + 30);
         }
 
         // Draw the cursor
@@ -170,8 +168,14 @@ public class Board extends JPanel {
     public void setCurrentPlayer(Choice choice) {
         currentPlayer = choice;
         gameOver =  false;
-        playerOne = new Player(currentPlayer);
-        playerTwo = new Player(currentPlayer == Choice.X ? Choice.O : Choice.X);
+        if(isFirstGame) {
+            playerOne = new Player(currentPlayer);
+            playerTwo = new Player(currentPlayer == Choice.X ? Choice.O : Choice.X);
+        }
+        else {
+            playerOne.choice = currentPlayer;
+            playerTwo.choice = currentPlayer == Choice.X ? Choice.O : Choice.X;
+        }
         footer.setCurrentPlayer(choice); 
         repaint();
     }
