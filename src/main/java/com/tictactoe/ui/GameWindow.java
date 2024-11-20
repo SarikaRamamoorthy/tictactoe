@@ -34,9 +34,9 @@ public class GameWindow extends JFrame {
         this.getContentPane().removeAll();
     }
     
-    public void setBoard() {
+    public void setBoard(boolean isOnePlayerMode) {
         Title title = new Title();
-        Board board = new Board(this);
+        Board board = new Board(this, isOnePlayerMode);
         clrScreen();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());

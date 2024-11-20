@@ -2,6 +2,7 @@ package com.tictactoe.ui;
 
 import javax.swing.*;
 
+import com.tictactoe.engine.Engine;
 import com.tictactoe.grid.Grid;
 import com.tictactoe.grid.Grid.Choice;
 import com.tictactoe.player.Player;
@@ -33,8 +34,9 @@ public class Board extends JPanel {
     GameWindow gameWindow;
     Player playerOne;
     Player playerTwo;
+    boolean isOnePlayerMode;
 
-    public Board(GameWindow gameWindow) {
+    public Board(GameWindow gameWindow, boolean isOnePlayerMode) {
         footer = new Footer();
         scorecard = new Scorecard();
         this.gameWindow = gameWindow;
@@ -46,6 +48,7 @@ public class Board extends JPanel {
         this.add(scorecard, BorderLayout.NORTH);
         this.add(footer, BorderLayout.SOUTH);
         this.setFocusable(true); 
+        this.isOnePlayerMode = isOnePlayerMode;
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -125,7 +128,45 @@ public class Board extends JPanel {
             isFirstGame = false;
             footer.setCurrentPlayer(currentPlayer); 
             repaintCell(cursorRow, cursorCol);
+            if (isOnePlayerMode && currentPlayer == playerTwo.choice) {
+                engineMove();
+            }
         }
+    }
+
+    public void engineMove() {
+
+        int[] position = playerTwo.nextMove();
+
+        if (cursorRow > position[0]) {
+            for (int i = cursorRow - 1; i >= position[0]; i--) {
+                cursorRow = i;
+                repaint();
+            }
+        }
+        else {
+            
+            for (int i = cursorRow + 1; i <= position[0]; i++) {
+                cursorRow = i;
+                repaint();
+            }
+        }
+        
+        if (cursorCol > position[1]) {
+            for (int i = cursorCol - 1; i >= position[1]; i--) {
+                cursorCol = i;
+                repaint();
+            }
+        }
+        else {
+            
+            for (int i = cursorCol + 1; i <= position[1]; i++) {
+                cursorCol = i;
+                repaint();
+            }
+        }
+
+        markCell();
     }
 
     private void repaintCell(int row, int col) {
@@ -170,7 +211,11 @@ public class Board extends JPanel {
         gameOver =  false;
         if(isFirstGame) {
             playerOne = new Player(currentPlayer);
-            playerTwo = new Player(currentPlayer == Choice.X ? Choice.O : Choice.X);
+            if (isOnePlayerMode) {
+                playerTwo = new Engine(currentPlayer == Choice.X ? Choice.O : Choice.X);
+            } else {
+                playerTwo = new Player(currentPlayer == Choice.X ? Choice.O : Choice.X);
+            }
         }
         else {
             playerOne.choice = currentPlayer;

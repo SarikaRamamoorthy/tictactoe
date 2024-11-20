@@ -11,7 +11,7 @@ public class Player {
         this.score = 0;
     }
 
-    public void nextMove(int xPos, int yPos) {
-        Grid.setPosition(this.choice, xPos, yPos);
+    public int[] nextMove() {
+        return new int[]{};
     }
 }

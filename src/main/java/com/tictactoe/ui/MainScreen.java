@@ -32,7 +32,7 @@ public class MainScreen extends JPanel {
                 switch (key) {
                     case KeyEvent.VK_UP -> setSelection(true);
                     case KeyEvent.VK_DOWN -> setSelection(false);
-                    case KeyEvent.VK_ENTER -> parentWindow.setBoard();
+                    case KeyEvent.VK_ENTER -> parentWindow.setBoard(select);
                 }
             }
         });
