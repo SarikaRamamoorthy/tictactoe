@@ -13,7 +13,7 @@ public class Engine extends Player{
     @Override
     public int[] nextMove() {
 
-        int SIZE = Grid.SIZE;
+        int SIZE = Grid.getBoardSize();
         int score = Integer.MIN_VALUE;
         int[] position = new int[2];
 
@@ -35,10 +35,9 @@ public class Engine extends Player{
         return position;
     }
     
-    char[][] board = Grid.board;
     public int minimax(boolean isMaximizier, int depth) {
 
-        int SIZE = Grid.SIZE;
+        int SIZE = Grid.getBoardSize();
 
         int state = checkState();
         if (state != 0 || depth == 0 || isGameOver()) {
@@ -75,7 +74,7 @@ public class Engine extends Player{
 
     public boolean isGameOver() {
 
-        int SIZE = Grid.SIZE;
+        int SIZE = Grid.getBoardSize();
 
         for (int i = 0; i < SIZE ; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -90,8 +89,8 @@ public class Engine extends Player{
     
     public int checkState() {
 
-        char[][] board = Grid.board;
-        int SIZE = Grid.SIZE;
+        char[][] board = Grid.getBoard();
+        int SIZE = Grid.getBoardSize();
         char winChar = this.choice == Choice.X ? 'X' : 'O';
 
         // checking row

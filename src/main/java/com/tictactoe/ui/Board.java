@@ -15,7 +15,7 @@ public class Board extends JPanel {
     private static final int XOFFSET = 160;
     private static final int YOFFSET = 135;
     private static final int PADDING = 10;  
-    private static final int GRID_COUNT = Grid.SIZE;  
+    private static final int GRID_COUNT = Grid.getBoardSize();  
     private static final int CELL_SIZE = 55;  
 
     private int cursorRow;  
@@ -23,7 +23,7 @@ public class Board extends JPanel {
     private int prevCursorRow;  
     private int prevCursorCol;  
 
-    private char[][] board = Grid.board;  
+    private char[][] board = Grid.getBoard();  
     private Choice currentPlayer;
     private boolean gameOver; 
     private boolean isFirstGame;
@@ -127,7 +127,6 @@ public class Board extends JPanel {
                 return;
             } 
             currentPlayer = (currentPlayer == Choice.X) ? Choice.O : Choice.X; 
-            isFirstGame = false;
             footer.setCurrentPlayer(currentPlayer); 
             repaintCell(cursorRow, cursorCol);
             if (isOnePlayerMode && currentPlayer == playerTwo.choice) {
@@ -212,9 +211,14 @@ public class Board extends JPanel {
         currentPlayer = choice;
         gameOver =  false;
         if(isFirstGame) {
+            isFirstGame = false;
             playerOne = new Player(currentPlayer);
             if (isOnePlayerMode) {
                 playerTwo = new Engine(currentPlayer == Choice.X ? Choice.O : Choice.X);
+                if (playerTwo.choice == Choice.X) {
+                    currentPlayer = Choice.X;
+                    engineMove();
+                }
             } else {
                 playerTwo = new Player(currentPlayer == Choice.X ? Choice.O : Choice.X);
             }

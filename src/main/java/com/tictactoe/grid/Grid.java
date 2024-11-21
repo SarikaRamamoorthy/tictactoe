@@ -2,8 +2,8 @@ package com.tictactoe.grid;
 
 public class Grid implements Decoration {
     public enum Choice {X, O, EMPTY};
-    public static int SIZE;
-    public static char[][] board;   
+    private static int SIZE;
+    private static char[][] board;   
 
     public static void initializeGrid(int n) {
         SIZE = n;
@@ -142,5 +142,13 @@ public class Grid implements Decoration {
                 board[i][j] = '\0';
             }
         }
+    }
+
+    public static char[][] getBoard() {
+        return board;
+    }
+
+    public static int getBoardSize() {
+        return SIZE;
     }
 }
