@@ -120,9 +120,11 @@ public class Board extends JPanel {
                 String message = currentPlayer == Choice.X ? "X Wins!!!" : "O Wins!!!";
                 footer.setPopupMessage(message);
                 gameOver = true;
+                return;
             } else if (Grid.isDrawState()) {
                 footer.setPopupMessage("DRAW!!!");
                 gameOver = true;
+                return;
             } 
             currentPlayer = (currentPlayer == Choice.X) ? Choice.O : Choice.X; 
             isFirstGame = false;

@@ -1,22 +1,13 @@
 package com.tictactoe.grid;
 
 public class Grid implements Decoration {
-    public enum Choice {X, O};
+    public enum Choice {X, O, EMPTY};
     public static int SIZE;
     public static char[][] board;   
 
     public static void initializeGrid(int n) {
         SIZE = n;
         board = new char[n][n];
-    }
-
-    public static void display() {
-        for(int i = 0 ; i < SIZE ; i++) {
-            for(int j = 0 ; j < SIZE ; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     /**
@@ -30,9 +21,12 @@ public class Grid implements Decoration {
     public static boolean isValidPostition(int xPos, int yPos) {
         return (
             (xPos >= 0 && xPos < SIZE) && 
-            (yPos >= 0 && yPos < SIZE) && 
-            (board[xPos][yPos] == 0)
+            (yPos >= 0 && yPos < SIZE)
         );
+    }
+
+    public static boolean isPositionEmpty(int xPos, int yPos) {
+        return board[xPos][yPos] == '\0';
     }
 
     /**
@@ -48,10 +42,13 @@ public class Grid implements Decoration {
         if(!isValidPostition(xPos, yPos)) {
             return false;
         }
-        if (choice == Choice.X) {
+        boolean emptyPosition = isPositionEmpty(xPos, yPos);
+        if (choice == Choice.X && emptyPosition ) {
             board[xPos][yPos] = 'X';
-        } else {
+        } else if (choice == Choice.O && emptyPosition) {
             board[xPos][yPos] = 'O';
+        } else {
+            board[xPos][yPos] = '\0';
         }
         return true;
     }
