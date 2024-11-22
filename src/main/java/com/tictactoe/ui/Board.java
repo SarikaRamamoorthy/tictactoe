@@ -190,14 +190,14 @@ public class Board extends JPanel {
                 graphics.drawRect(x, y, CELL_SIZE, CELL_SIZE);  
 
                 if (board[row][col] != '\0') {  
-                    graphics.setFont(new Font("MV Boli", Font.BOLD, 20));
+                    graphics.setFont(new Font(Styles.BOARD_FONT ,Font.BOLD, 20));
                     graphics.drawString(String.valueOf(board[row][col]), x + CELL_SIZE / 3, y + 2 * CELL_SIZE / 3);
                 }
             }
         }
         
         if(currentPlayer == null) {
-            graphics.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 10));
+            graphics.setFont(new Font(Styles.DEFAULT_FONT, Font.BOLD, 10));
             graphics.drawString("Choose X or O from keyboard", XOFFSET - 5, (CELL_SIZE * GRID_COUNT) + YOFFSET + 30);
         }
 

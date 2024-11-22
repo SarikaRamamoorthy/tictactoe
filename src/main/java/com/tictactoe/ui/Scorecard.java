@@ -15,7 +15,7 @@ public class Scorecard extends JPanel {
         playerOneScore = 0;
         playerTwoScore = 0;
         setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(500, 50));
+        setPreferredSize(new Dimension(Styles.BOARD_WIDTH, 50));
     }
 
     @Override
@@ -24,11 +24,23 @@ public class Scorecard extends JPanel {
         graphics.drawString("Score : "+playerOneScore+" / "+playerTwoScore, 210, 40);
     }
 
+    
+    /**
+     * This method updates the current score of the players
+     * @param xPos - Denotes the score of player one
+     * @param yPos - Denotes the score of player two
+     * 
+     */
+    
     public void updateScorecard(int playerOneScore, int playerTwoScore) {
         this.playerOneScore = playerOneScore;
         this.playerTwoScore = playerTwoScore;
         repaint();
     }
+    
+    /**
+     * This method resets the score of the players
+     */
 
     public void resetScorecard() {
         playerOneScore = 0;

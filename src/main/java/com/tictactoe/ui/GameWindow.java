@@ -11,13 +11,12 @@ public class GameWindow extends JFrame {
 
     public GameWindow() {
         this.setTitle("Tic Tac Toe");
-        this.setBounds(0, 0, 500, 520);
+        this.setBounds(0, 0, Styles.BOARD_WIDTH, Styles.BOARD_LENGTH + Styles.TITLE_HEIGHT);
         this.setResizable(false);
     }
     
     public void runGame() {
         setMainScreen();
-        // setBoard();
     }
     
     public void setMainScreen() {

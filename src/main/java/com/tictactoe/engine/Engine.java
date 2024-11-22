@@ -5,11 +5,18 @@ import com.tictactoe.grid.Grid.Choice;
 import com.tictactoe.player.Player;
 
 public class Engine extends Player{
-    
+
     public Engine(Grid.Choice choice) {
         super(choice);
     }
-
+    
+    
+    /**
+     * This method finds the next best move of the engine
+     * 
+     * @return - an array with position for the next move
+     */
+    
     @Override
     public int[] nextMove() {
 
@@ -34,8 +41,17 @@ public class Engine extends Player{
         
         return position;
     }
+
+    /**
+     * This method finds the optimal value a maximizer can obtain
+     * @param isMaximizer - is true if current move is of maximizer 
+     * @param depth - remaining depth of the game tree to explore
+     * 
+     * @return - If current move is maximizer, returns the maximum attainable value else returns the minimum attainable value
+     */
     
-    public int minimax(boolean isMaximizier, int depth) {
+    
+    public int minimax(boolean isMaximizer, int depth) {
 
         int SIZE = Grid.getBoardSize();
 
@@ -44,7 +60,7 @@ public class Engine extends Player{
             return state;
         }
 
-        if (isMaximizier) {
+        if (isMaximizer) {
             int max = Integer.MIN_VALUE;
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
@@ -72,6 +88,13 @@ public class Engine extends Player{
 
     }
 
+    /**
+     * This method checks if there is any empty space in the grid
+     * 
+     * @return - true if not empty spaces remain, false otherwise
+     */
+    
+
     public boolean isGameOver() {
 
         int SIZE = Grid.getBoardSize();
@@ -86,6 +109,13 @@ public class Engine extends Player{
 
         return true;
     }
+
+    /**
+     * This method checks the win and draw state of the players
+     * 
+     * @return - 1 if engine wins, -1 if opponent wins and 0 if draw or still going 
+     */
+    
     
     public int checkState() {
 

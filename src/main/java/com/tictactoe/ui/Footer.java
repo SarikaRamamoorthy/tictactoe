@@ -14,16 +14,16 @@ public class Footer extends JPanel {
     char currentPlayer;
     public Footer() {
         super();   
-        currentPlayer =  '?';
+        currentPlayer = '?';
         setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(500, 125));
+        setPreferredSize(new Dimension(Styles.BOARD_WIDTH, 125));
     }
 
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         graphics.setColor(Color.WHITE);
-        graphics.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 10));
+        graphics.setFont(new Font(Styles.DEFAULT_FONT, Font.BOLD, 10));
         if (this.message != null) {
             graphics.drawString(this.message, 210, 10);
         }

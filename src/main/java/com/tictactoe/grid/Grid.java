@@ -1,6 +1,6 @@
 package com.tictactoe.grid;
 
-public class Grid implements Decoration {
+public class Grid {
     public enum Choice {X, O, EMPTY};
     private static int SIZE;
     private static char[][] board;   

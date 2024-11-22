@@ -22,7 +22,7 @@ public class MainScreen extends JPanel {
     boolean select = true, isSelected = false;
     public MainScreen(GameWindow parentWindow) {
         this.setBackground(Color.BLACK);
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(Styles.BOARD_WIDTH, Styles.BOARD_LENGTH));
         this.setFocusable(true);
 
         addKeyListener(new KeyAdapter() {
@@ -49,9 +49,9 @@ public class MainScreen extends JPanel {
 
     public void toggleSelection(Graphics g, boolean isSelected) {
         if (isSelected) {
-            g.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 12).deriveFont(CustomFont.underlineOn));
+            g.setFont(new Font(Styles.DEFAULT_FONT, Font.BOLD, 12).deriveFont(CustomFont.underlineOn));
         } else {
-            g.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 12));
+            g.setFont(new Font(Styles.DEFAULT_FONT, Font.BOLD, 12));
         }
     }
 
@@ -59,7 +59,7 @@ public class MainScreen extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.WHITE);
-        g.setFont(new Font("JetBrains Mono Regular", Font.BOLD, 40));
+        g.setFont(new Font(Styles.DEFAULT_FONT, Font.BOLD, 40));
         g.drawString("XO", 210, 150);
         toggleSelection(g, select);
         g.drawString("1. One Player", 190, 280);
