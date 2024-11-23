@@ -25,3 +25,7 @@ This Tic Tac Toe game is a swing UI based game which supports one-player as well
 3. Run `mvn javadoc:javadoc` to generate the HTML files for the API docs
 
 4. Open `./target/site/apidocs/index.html` in a browser
+
+### GamePlay 🎮
+
+[Sample Game play video](./assets//GamePlay.mp4)
