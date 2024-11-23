@@ -27,8 +27,8 @@ public class Scorecard extends JPanel {
     
     /**
      * This method updates the current score of the players
-     * @param xPos - Denotes the score of player one
-     * @param yPos - Denotes the score of player two
+     * @param playerOneScore - Denotes the score of player one
+     * @param playerTwoScore - Denotes the score of player two
      * 
      */
     

@@ -57,7 +57,7 @@ public class Board extends JPanel {
                 prevCursorCol = cursorCol;
 
                 int key = e.getKeyCode();
-                if (!gameOver) {
+                if (!gameOver && (!isOnePlayerMode || (isOnePlayerMode && currentPlayer == playerOne.choice))) {
                     switch (key) {
                         case KeyEvent.VK_UP -> cursorRow = (cursorRow - 1 + GRID_COUNT) % GRID_COUNT;
                         case KeyEvent.VK_DOWN -> cursorRow = (cursorRow + 1) % GRID_COUNT;
@@ -84,6 +84,10 @@ public class Board extends JPanel {
         });
     }
 
+    /**
+     * This method is used to initialize the game whenever a new game is started
+     */
+
     public void initialize() {
         cursorRow = 0;
         cursorCol = 0;
@@ -93,6 +97,8 @@ public class Board extends JPanel {
         currentPlayer = null;
     }
 
+
+
     private void newGame() {
         Grid.clearBoard();
         this.footer.resetMessage();
@@ -100,6 +106,11 @@ public class Board extends JPanel {
         initialize();
         repaint();
     }
+
+
+    /**
+     * This method exits from game and redirects to main screen
+     */
 
     private void exitGame() {
         newGame();
@@ -135,41 +146,38 @@ public class Board extends JPanel {
         }
     }
 
+    /**
+     * This method gets the move from the engine and moves the cursor to that cell and marks that cell
+     */
     public void engineMove() {
-
         int[] position = playerTwo.nextMove();
+        int targetRow = position[0];
+        int targetCol = position[1];
 
-        if (cursorRow > position[0]) {
-            for (int i = cursorRow - 1; i >= position[0]; i--) {
-                cursorRow = i;
-                repaint();
-            }
-        }
-        else {
+        Timer timer = new Timer(500, null);
+        timer.addActionListener(event -> {
             
-            for (int i = cursorRow + 1; i <= position[0]; i++) {
-                cursorRow = i;
-                repaint();
+            if (cursorRow != targetRow) {
+                cursorRow += (cursorRow < targetRow) ? 1 : -1;
+            } else if (cursorCol != targetCol) {
+                cursorCol += (cursorCol < targetCol) ? 1 : -1;
+            } else {
+                ((Timer) event.getSource()).stop();
+                markCell();
             }
-        }
-        
-        if (cursorCol > position[1]) {
-            for (int i = cursorCol - 1; i >= position[1]; i--) {
-                cursorCol = i;
-                repaint();
-            }
-        }
-        else {
-            
-            for (int i = cursorCol + 1; i <= position[1]; i++) {
-                cursorCol = i;
-                repaint();
-            }
-        }
+            repaint();
 
-        markCell();
-    }
+        });
+        timer.start();
+    }    
+    
 
+    /**
+     * Provides the actual coordinates scaled up to the cell size and paints the Board Panel
+     * 
+     * @param row - row value of the grid
+     * @param col - column value of the grid
+     */
     private void repaintCell(int row, int col) {
         int x = col * CELL_SIZE + XOFFSET;
         int y = row * CELL_SIZE + YOFFSET;
@@ -207,6 +215,11 @@ public class Board extends JPanel {
                    CELL_SIZE - PADDING, CELL_SIZE - PADDING);  
     }
 
+    /**
+     * This method switches the Symbol to indicate which player needs to move
+     * 
+     * @param choice - This is the current symbol to be played
+     */
     public void setCurrentPlayer(Choice choice) {
         currentPlayer = choice;
         gameOver =  false;

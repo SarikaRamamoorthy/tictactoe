@@ -119,8 +119,6 @@ public class Grid {
 
     /**
      * This method checks whether the game draws or not
-     * @param xPos - Denotes the x-axis position
-     * @param yPos - Denotes the y-axis position 
      * 
      * @return - Whether the game draws
      */

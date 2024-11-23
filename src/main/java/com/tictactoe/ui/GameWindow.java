@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 public class GameWindow extends JFrame {
-    boolean GAME_STOP = false;
-    boolean boardDisplayed = false;
-    boolean mainScreenDisplayed = false;
     MainScreen mScreen;
 
     public GameWindow() {
@@ -15,9 +12,17 @@ public class GameWindow extends JFrame {
         this.setResizable(false);
     }
     
+    /**
+     * This method starts the game by displaying main screeen
+     */
+
     public void runGame() {
         setMainScreen();
     }
+
+    /**
+     * This method adds the main screen instance to the frame
+     */
     
     public void setMainScreen() {
         mScreen = new MainScreen(this);
@@ -29,9 +34,20 @@ public class GameWindow extends JFrame {
         mScreen.requestFocusInWindow();
     }
 
+    /**
+     * This method is used to clear the frame
+     */
+
     public void clrScreen() {
         this.getContentPane().removeAll();
     }
+
+    /**
+     * This method adds the instance of title and board to the frame
+     * 
+     * @param isOnePlayerMode - true if one player mode is selected, 
+     * false if two player mode is selected
+     */
     
     public void setBoard(boolean isOnePlayerMode) {
         Title title = new Title();

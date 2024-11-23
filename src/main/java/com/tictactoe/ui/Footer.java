@@ -19,6 +19,13 @@ public class Footer extends JPanel {
         setPreferredSize(new Dimension(Styles.BOARD_WIDTH, 125));
     }
 
+    /**
+     * Overrides the paintComponent method to display the footer content, 
+     * including controls and the current player's turn.
+     *
+     * @param graphics - Graphics object for rendering the component.
+     */  
+
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
@@ -30,20 +37,42 @@ public class Footer extends JPanel {
         graphics.drawString("New Game(N)    Exit(E)                                Current Player : "+currentPlayer, 5, 110);
     }
 
+    /**
+     * This method sets the win or draw message
+     * @param message - The message to be displayed
+     * 
+     */
+    
     public void setPopupMessage(String message) {
         this.message = message;
         repaint();
     }
-
+    
+    /**
+     * This method sets the current player
+     * @param currentPlayer - The current player of the game
+     * 
+     */
+    
     public void setCurrentPlayer(Choice currentPlayer) {
         this.currentPlayer = (currentPlayer == Choice.X )? 'X' : 'O';
         repaint();
     }
 
+    /**
+     * This method resets the displayed message
+     * 
+     */
+    
     public void resetMessage() {
         this.message = null;
         repaint();
     }
+    
+    /**
+     * This method resets the displayed current player
+     * 
+     */
 
     public void resetCurrentPlayer() {
         this.currentPlayer = '?';
